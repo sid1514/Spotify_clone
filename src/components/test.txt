@@ -1,0 +1,47 @@
+// Authorization token that must have been created previously. See : https://developer.spotify.com/documentation/web-api/concepts/authorization
+const token = 'BQD66nxGKjpDyKds58FdKewzFw8FonlUGMFl2_6KXWFSkvUd-BN_zEpLdo8fDZFGUVLE1Be6OSYuihi7lxWbrhcFErLa7H2KOq5JjM8SK2sEs6rDdq5WNtQT2XbEWcMDlFTcnl86UZp-TFwLoQ9W_aRDDneyt-YqaDp64Pj5Uadd8Yj9PpT1--vZj_9uq-rTa79BxAUv9PZ3Fzu30j6Is51wluvR50RA2KEwKl4dz8JBfl36V6SfxGihw3-2aWyQ2grXRlKB_G2QF3-7Fn8huWuJ';
+async function fetchWebApi(endpoint, method, body) {
+  const res = await fetch(`https://api.spotify.com/${endpoint}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    method,
+    body:JSON.stringify(body)
+  });
+  return await res.json();
+}
+
+async function getTopTracks(){
+  // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
+  return (await fetchWebApi(
+    'v1/me/top/tracks?time_range=long_term&limit=5', 'GET'
+  )).items;
+}
+
+const topTracks = await getTopTracks();
+console.log(
+  topTracks?.map(
+    ({name, artists}) =>
+      `${name} by ${artists.map(artist => artist.name).join(', ')}`
+  )
+);
+
+
+
+
+
+//css
+
+<section className="text-white bg-stone-900 w-full h-full">
+    <div className='grid-flex flex p-12 mb-14 '>
+            <span>
+                <img src='https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/spotify-white-icon.png' alt='spotify' className="w-12 h-12"/> 
+            </span> 
+            <span>
+                <h1 className=' px-1 pt-1 text-white text-4xl'>Spotify </h1>
+            </span> 
+    </div> 
+    <div className="text-white">
+        <span>Sign up to start listening</span>
+    </div>
+    <section/>
