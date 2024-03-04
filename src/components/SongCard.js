@@ -1,17 +1,33 @@
-const MusicCard=({musicImage,musicName,musicDescribe})=>{
+import { Icon } from "semantic-ui-react";
+import { useState } from "react";
+
+
+const PlayListsCard=({PlayListImage,PlayListName,PlayListcDescribe,token,handleSignInmodal})=>{
+  const [playbtDisplay,setplayDisplay]=useState(false);
+  
+  
+  
     return(<>
-     <div className="bg-neutral-900 w-1/6 rounded-2xl m-10">
+     <div className="bg-neutral-900 w-1/7 rounded-2xl ml-6 p-4 h-min hover:bg-neutral-800" onMouseEnter={()=>setplayDisplay(true)} onMouseLeave={()=>setplayDisplay(false)}>
    <span className="relative">
-     <img src="https://www.trendingus.com/wp-content/uploads/2022/06/Trending-Group-Names-for-Friends-1280x768.jpg" alt="Your image" className="w-66 p-2 h-80 rounded-2xl p-5" />
+     <img src={PlayListImage} alt="music" className="w-80 h-80 rounded-3xl pt-5 px-2 shadow-2xl" />
+    <img src='https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/spotify-white-icon.png' className="absolute top-6 left-4 h-10 w-10 p-2"/>
      
-      <p className="absolute bottom-14 left-5 m-3 text-lg font-bold bg-opacity-50">song name</p>   
+     <span className="relative absolute flex grid-flex top-7/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+     <p className="absolute text-lg font-bold bg-opacity-50 bottom-5 left-1 p-2 m-4">PlayLists name</p>   
+    { playbtDisplay?
+ <Icon name='play circle' size="huge" color='green'  className='None absolute right-12 bottom-16 rounded-full ' onClick={handleSignInmodal}/> :null
+    } 
+      </span> 
     </span>
     
-        <h2 className="m-4 pl-3">song name</h2>
-        <p className="m-4 py-2 pb-4 pl-3">description</p>
+        <h2 className="m-4 pl-3">PlayLists</h2>
+        <p className="truncate w-64 h-16 m-4  pb-4 pl-3 overflow-hidden overflow-ellipsis text-2xl text-zinc-500 font-bold">description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consequat...</p>
+  
+    
    
   </div>
     </>)
 }
 
-export default MusicCard;
+export default PlayListsCard;

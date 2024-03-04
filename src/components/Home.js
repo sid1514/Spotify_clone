@@ -1,23 +1,63 @@
 
-import {  Icon } from 'semantic-ui-react';
-import MusicCard from './SongCard';
+import { Icon } from 'semantic-ui-react';
+import PlayListsCard from './SongCard';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import AskSignIn from './AsktoSignModal';
 
 function Home(){
+  
+const [token,setToken]=useState()
 const nav=useNavigate()
+
+const playLists = [
+  { id: 1, Image: 'https://www.trendingus.com/wp-content/uploads/2022/06/Trending-Group-Names-for-Friends-1280x768.jpg' },
+  { id: 2, name: 'Item 2' },
+  { id: 3, name: 'Item 3' }
+];
+
+const [modalOpen, setModalOpen] = useState(false);
  const handleNavtoSignup=()=>{
    nav('/SignUp')
  }
  const handleNavtoLogin=()=>{
   nav('/Log_In')
 }
-const hash=window.location.hash;
-console.log(hash)
+const handleSignInmodal=()=>{
+  if(!token){
+
+    setModalOpen(true);
+  }
+}
+useEffect(() => {
+  // Check if token exists in localStorage
+  const storedToken = localStorage.getItem("token");
+
+  if (storedToken) {
+    setToken(storedToken);
+
+  } else {
+    // If token doesn't exist in localStorage, check if it's in URL hash
+    const hash = window.location.hash;
+    if (hash) {
+      const urlParams = new URLSearchParams(hash.replace("#", "?"));
+      const accessToken = urlParams.get("access_token");
+
+      if (accessToken) {
+        // Store token in localStorage and state
+        localStorage.setItem("token", accessToken);
+        setToken(accessToken);
+      }
+    }
+  }
+}, []);
   return(
 <>
+<section className='bg-black h-svh'>
+
 <section className='bg-black text-white grid-flex flex'>
   <section className='w-3/12'> 
-      <div className='bg-black text-white py-3 px-1 h-dvh '>
+      <div className='bg-black text-white py-3 px-1  '>
         <div className='bg-neutral-900/75 p-2 mx-2 rounded-2xl' >
           <div className='grid-flex flex p-6'>
             <span>
@@ -46,7 +86,7 @@ console.log(hash)
             </span>
         </div> 
       </div>
-      
+     
       <div className='bg-neutral-900/75  p-2 mx-2 mt-4 rounded-2xl '>
         <div className='relative grid-flex flex px-6 pt-5 overflow-y-auto h-15'>
       
@@ -55,7 +95,7 @@ console.log(hash)
         
           </span>
           <span>
-            <h2 className='text-2xl px-4 pt-3 font-extrabold tracking-wide text-stone-400 hover:text-white'>Your Library</h2>
+            <h2 className='text-2xl px-4 pt-3 font-extrabold tracking-wide text-stone-400 hover:text-white '>Your Library</h2>
           </span>
           <span className="absolute right-2 m-2">
             <button  > <img src='https://www.pngall.com/wp-content/uploads/10/Plus-Symbol-PNG-Images-HD.png' alt='search' width={26} className='px-1 h-6 '/> </button>
@@ -95,28 +135,39 @@ console.log(hash)
           <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
           </svg>
         </span>
+       {  token? 
           <span className='absolute right-0 mr-20'>
+            <button className='bg-white text-black ml-16 w-48 p-6 rounded-full' onClick={handleNavtoLogin}><h2>Log out</h2></button>
+          </span>:<span className='absolute right-0 mr-20'>
             <button onClick={handleNavtoSignup}><h2 className='text-neutral-400 hover:text-white'>Sign up</h2></button>
             <button className='bg-white text-black ml-16 w-48 p-6 rounded-full' onClick={handleNavtoLogin}><h2>Log in</h2></button>
           </span>
+        } 
       </div> 
-      <div className='relative bg-zinc-800/50 p-4 pl-10 pb-80 rounded-2xl'>
+      <div className='relative bg-zinc-800/50 p-4 pl-10 '>
           <h1 className='text-4xl font-extrabold hover:underline underline-offset-3'>Spotify Playlists</h1>
           <button className='absolute right-10 top-1 pt-3'><h4 className='text-2xl text-stone-400 hover:underline underline-offset-1 font-bold '>Show all</h4></button>
-        <div>
-          <MusicCard/>
+        <div className='pb-80 justify-space-between grid-flex flex'>
+          <PlayListsCard handleSignInmodal={handleSignInmodal} PlayListImage={playLists[0].Image}/>
+          <AskSignIn open={modalOpen} setOpen={setModalOpen} PlayListImage={playLists[0].Image}/>
+          <PlayListsCard handleSignInmodal={handleSignInmodal} PlayListImage={playLists[0].Image}/>
+          <PlayListsCard handleSignInmodal={handleSignInmodal} PlayListImage={playLists[0].Image}/>
+          <PlayListsCard handleSignInmodal={handleSignInmodal} PlayListImage={playLists[0].Image}/>
+          <PlayListsCard handleSignInmodal={handleSignInmodal} PlayListImage={playLists[0].Image}/>
         </div>
       </div>
 
     </section>
-      <div className='grid-flex flex absolute bottom-1 font-bold text-2xl bg-stone-800 w-svw m-5 p-4 mr-4 pb-3 pl-8 tracking-wide bg-gradient-to-r from-pink-500 to-blue-400'>
+      
+</section>   
+  <div className='bg-black grid-flex flex font-bold text-2xl text-white bg-stone-800  m-5 p-4 mr-4 pb-3 pl-3 tracking-wide bg-gradient-to-r from-pink-500 to-blue-400'>
         <span>
           <h2>Prieview of Spotify</h2>
           <p>Sign up to get unlimited songs and podcasts with occassional ads. No credit card needed</p>
         </span>
         <button className='absolute right-2 bg-white text-black ml-16 w-46 p-6 pl-12 pr-12 rounded-full mr-16'> Sign up for free</button>
-      </div>
-</section>     
+  </div>  
+</section>
 </>
     )
 }

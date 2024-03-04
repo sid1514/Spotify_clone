@@ -9,7 +9,6 @@ function App() {
     <>
    
     
-           <Test/>
     <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='/SignUp' element={<Signup/>}/>
