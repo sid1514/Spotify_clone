@@ -1,56 +1,141 @@
 
 import { Icon } from 'semantic-ui-react';
-import PlayListsCard from './SongCard';
+import UserProfile from './Profile';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import AskSignIn from './AsktoSignModal';
-
+import SpotifyWebApi from 'spotify-web-api-js';
+import PlayLists from './PlayLists';
+import SongLists from './Songlists';
+import PlayListsCard from './SongCard';
+import Test from '../test';
 function Home(){
-  
+const spotifyApi = new SpotifyWebApi();
 const [token,setToken]=useState()
+const [searchkey,setSearchKey]=useState()
+const[showList,setShowList]=useState(false)
 const nav=useNavigate()
+const [songs, setSongs] = useState([]);
 
-const playLists = [
-  { id: 1, Image: 'https://www.trendingus.com/wp-content/uploads/2022/06/Trending-Group-Names-for-Friends-1280x768.jpg' },
-  { id: 2, name: 'Item 2' },
-  { id: 3, name: 'Item 3' }
-];
-
-const [modalOpen, setModalOpen] = useState(false);
- const handleNavtoSignup=()=>{
+const handleNavtoSignup=()=>{
    nav('/SignUp')
  }
  const handleNavtoLogin=()=>{
   nav('/Log_In')
 }
-const handleSignInmodal=()=>{
-  if(!token){
 
-    setModalOpen(true);
-  }
-}
+
 useEffect(() => {
-  // Check if token exists in localStorage
-  const storedToken = localStorage.getItem("token");
+  const storedToken = window.localStorage.getItem("token");
 
   if (storedToken) {
     setToken(storedToken);
 
   } else {
-    // If token doesn't exist in localStorage, check if it's in URL hash
     const hash = window.location.hash;
     if (hash) {
       const urlParams = new URLSearchParams(hash.replace("#", "?"));
       const accessToken = urlParams.get("access_token");
 
       if (accessToken) {
-        // Store token in localStorage and state
-        localStorage.setItem("token", accessToken);
+        window.localStorage.setItem("token", accessToken);
+        const expirationTime = Math.floor(Date.now() / 1000) + 3600;
+          window.localStorage.setItem("token_expiration", expirationTime);
         setToken(accessToken);
       }
     }
   }
+  async function refreshAccessToken(refreshToken) {
+    const clientId = '026e1209e275417584cec6e6c784b65d';
+    const clientSecret = '219e5dc1a84049b793479bfe10db5bbf';
+    const apiUrl = 'https://accounts.spotify.com/api/token';
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
+        },
+        body: new URLSearchParams({
+          grant_type: 'refresh_token',
+          refresh_token: refreshToken,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to refresh access token');
+      }
+  
+      const tokenData = await response.json();
+      return tokenData.access_token;
+    } catch (error) {
+      console.error('Error refreshing access token:', error);
+      return null;
+    }
+  }
+  const checkTokenExpiration = async() => {
+    const tokenExpiration = window.localStorage.getItem("token_expiration");
+    if (tokenExpiration) {
+      const expirationTime = parseInt(tokenExpiration, 10);
+      const currentTime = Math.floor(Date.now() / 1000);
+  
+     
+      if (currentTime >= expirationTime - 60) {
+        const refreshToken = window.localStorage.getItem("refresh_token");
+        if (refreshToken) {
+          try {
+            const newAccessToken = await refreshAccessToken(refreshToken);
+            if (newAccessToken) {
+              setToken(newAccessToken);
+             
+            } else {
+              console.error('Failed to refresh access token');
+             
+            }
+          } catch (error) {
+            console.error('Error refreshing token:', error);
+           
+          }
+        } else {
+          console.error('No refresh token found');
+          
+        }
+       
+     }
+    }
+  };
+  
+  const tokenCheckInterval = setInterval(checkTokenExpiration, 5 * 60 * 1000);
+  return () => clearInterval(tokenCheckInterval);
 }, []);
+
+
+
+useEffect(() => {
+  
+    try {
+      const response =  fetch('https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+     // const data = await response.json();
+     setSongs(response.items);
+      console.log(songs)
+     
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  
+},[])
+const [songListCover,setsongListCover]=useState()
+const [songListname,setsongListname]=useState()
+ const handleShowSongList=(playlistImage,playlistName)=>{
+   setShowList(true)
+   setsongListCover(playlistImage)
+   setsongListname(playlistName)
+   
+ }
   return(
 <>
 <section className='bg-black h-svh'>
@@ -123,7 +208,7 @@ useEffect(() => {
     </div>
       
     </section>
-    <section className=' bg-neutral-900/75 w-3/4 rounded-2xl pt-3 h-min mr-3 mt-2'>
+   {!showList? <section className=' bg-neutral-900/75 w-3/4 rounded-2xl pt-3 h-min mr-3 mt-2'>
       <div className='grid-flex flex p-6 mb-6 h-7/2'>
         <span className='border-1 rounded-3xl bg-stone-950 w-13 h-12 p-2 '>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-9 h-9">
@@ -135,39 +220,47 @@ useEffect(() => {
           <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
           </svg>
         </span>
-       {  token? 
-          <span className='absolute right-0 mr-20'>
-            <button className='bg-white text-black ml-16 w-48 p-6 rounded-full' onClick={handleNavtoLogin}><h2>Log out</h2></button>
-          </span>:<span className='absolute right-0 mr-20'>
+       
+       {token?(
+           <span className='grid-flex flex absolute right-0 '>
+           <button className='bg-white text-black ml-16 w-48 h-12 p-3 rounded-full'><h3 >Explore Premium</h3></button>
+            <button className='bg-black text-white ml-6 w-48 h-12 rounded-full mr-6' ><h3>Install app</h3></button>
+            <Icon name='bell ' size='large' bordered  className='bg-black rounded-full  '/>
+            <span className='pt-1 pr-10 pl-3'><UserProfile /></span> 
+            </span> 
+            
+        ):(<span className='absolute right-0 mr-20'>
             <button onClick={handleNavtoSignup}><h2 className='text-neutral-400 hover:text-white'>Sign up</h2></button>
             <button className='bg-white text-black ml-16 w-48 p-6 rounded-full' onClick={handleNavtoLogin}><h2>Log in</h2></button>
-          </span>
-        } 
+        </span> )
+        
+      }
+
       </div> 
       <div className='relative bg-zinc-800/50 p-4 pl-10 '>
           <h1 className='text-4xl font-extrabold hover:underline underline-offset-3'>Spotify Playlists</h1>
-          <button className='absolute right-10 top-1 pt-3'><h4 className='text-2xl text-stone-400 hover:underline underline-offset-1 font-bold '>Show all</h4></button>
-        <div className='pb-80 justify-space-between grid-flex flex'>
-          <PlayListsCard handleSignInmodal={handleSignInmodal} PlayListImage={playLists[0].Image}/>
-          <AskSignIn open={modalOpen} setOpen={setModalOpen} PlayListImage={playLists[0].Image}/>
-          <PlayListsCard handleSignInmodal={handleSignInmodal} PlayListImage={playLists[0].Image}/>
-          <PlayListsCard handleSignInmodal={handleSignInmodal} PlayListImage={playLists[0].Image}/>
-          <PlayListsCard handleSignInmodal={handleSignInmodal} PlayListImage={playLists[0].Image}/>
-          <PlayListsCard handleSignInmodal={handleSignInmodal} PlayListImage={playLists[0].Image}/>
-        </div>
+       { !token?  <button className='absolute right-10 top-1 pt-3'><h4 className='text-2xl text-stone-400 hover:underline underline-offset-1 font-bold '>Show all</h4></button> : null}
+       
+      <PlayLists handleShowSongList={handleShowSongList}/>
+     
       </div>
-
-    </section>
       
+    </section> :
+    <div style={{backgroundImage:`url(${songListCover})`}} className='bg-cover w-full h-96 pt-10'>
+    <SongLists playlistImage={songListCover} playlistName={songListname}/>
+    </div>
+}  
 </section>   
-  <div className='bg-black grid-flex flex font-bold text-2xl text-white bg-stone-800  m-5 p-4 mr-4 pb-3 pl-3 tracking-wide bg-gradient-to-r from-pink-500 to-blue-400'>
+  {!token?<div className='bg-black grid-flex flex font-bold text-2xl text-white bg-stone-800  m-5 p-4 mr-4 pb-3 pl-3 tracking-wide bg-gradient-to-r from-pink-500 to-blue-400'>
         <span>
           <h2>Prieview of Spotify</h2>
           <p>Sign up to get unlimited songs and podcasts with occassional ads. No credit card needed</p>
         </span>
-        <button className='absolute right-2 bg-white text-black ml-16 w-46 p-6 pl-12 pr-12 rounded-full mr-16'> Sign up for free</button>
-  </div>  
+        <button className='absolute right-2 bg-white text-black ml-16 w-46 p-6 pl-12 pr-12 rounded-full mr-16' onClick={handleNavtoSignup}> Sign up for free</button>
+  </div> :null } 
 </section>
+
+
 </>
     )
 }

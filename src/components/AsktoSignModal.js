@@ -24,7 +24,7 @@ const AskSignIn=({ open, setOpen ,PlayListImage})=>{
       
             
     
-        <button onClick={() => setOpen(false)} className='bg-neutral-950/100 w-full '><h3 className=' opacity-100 text-zinc-500 font-bold text-2xl hover:text-white'>Close</h3></button>
+        <button onClick={() => setOpen(false)} className='bg-black w-full '><h3 className=' opacity-100 text-zinc-500 font-bold text-2xl hover:text-white'>Close</h3></button>
     </Modal>
     </>)
 }
