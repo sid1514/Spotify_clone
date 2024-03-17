@@ -45,8 +45,8 @@ useEffect(() => {
     }
   }
   async function refreshAccessToken(refreshToken) {
-    const clientId = '026e1209e275417584cec6e6c784b65d';
-    const clientSecret = '219e5dc1a84049b793479bfe10db5bbf';
+    const clientId = 'client id';
+    const clientSecret = 'client secret';
     const apiUrl = 'https://accounts.spotify.com/api/token';
   
     try {
