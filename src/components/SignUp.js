@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Signup=()=>{
-  const CLIENT_ID = "026e1209e275417584cec6e6c784b65d"
-  const CLIENT_SECRET='219e5dc1a84049b793479bfe10db5bbf'
+  const CLIENT_ID = ""
+  const CLIENT_SECRET=''
   const REDIRECT_URI = "http://localhost:3000/";
   const RESPONSE_TYPE="token"
   const AUTH_ENDPOINT="https://accounts.spotify.com/authorize"
