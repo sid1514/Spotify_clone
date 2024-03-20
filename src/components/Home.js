@@ -6,49 +6,55 @@ import { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import PlayLists from './PlayLists';
 import SongLists from './Songlists';
-import PlayListsCard from './SongCard';
+import MusicPlayer from './Player';
 import Test from '../test';
+
 function Home(){
 const spotifyApi = new SpotifyWebApi();
-const [token,setToken]=useState()
 const [searchkey,setSearchKey]=useState()
 const[showList,setShowList]=useState(false)
 const nav=useNavigate()
 const [songs, setSongs] = useState([]);
 
 const handleNavtoSignup=()=>{
-   nav('/SignUp')
- }
- const handleNavtoLogin=()=>{
+  nav('/SignUp')
+}
+const handleNavtoLogin=()=>{
   nav('/Log_In')
 }
 
+const [token, setToken] = useState(null);
 
-useEffect(() => {
-  const storedToken = window.localStorage.getItem("token");
+  useEffect(() => {
+    const storedToken = window.localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    } else {
+      const hash = window.location.hash;
+      if (hash) {
+        const urlParams = new URLSearchParams(hash.replace("#", "?"));
+        const accessToken = urlParams.get("access_token");
 
-  if (storedToken) {
-    setToken(storedToken);
+        if (accessToken) {
+          const refreshToken = urlParams.get("refresh_token"); 
+          if (refreshToken) {
+            window.localStorage.setItem("refresh_token", refreshToken);
+          }
 
-  } else {
-    const hash = window.location.hash;
-    if (hash) {
-      const urlParams = new URLSearchParams(hash.replace("#", "?"));
-      const accessToken = urlParams.get("access_token");
-
-      if (accessToken) {
-        window.localStorage.setItem("token", accessToken);
-        const expirationTime = Math.floor(Date.now() / 1000) + 3600;
+          window.localStorage.setItem("token", accessToken);
+          const expirationTime = Math.floor(Date.now() / 1000) + 3600;
           window.localStorage.setItem("token_expiration", expirationTime);
-        setToken(accessToken);
+          setToken(accessToken);
+        }
       }
     }
-  }
+  }, []);
+
   async function refreshAccessToken(refreshToken) {
-    const clientId = '026e1209e275417584cec6e6c784b65d';
-    const clientSecret = '219e5dc1a84049b793479bfe10db5bbf';
+    const clientId = 'your_client_id';
+    const clientSecret = 'your_client_secret';
     const apiUrl = 'https://accounts.spotify.com/api/token';
-  
+
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -61,11 +67,11 @@ useEffect(() => {
           refresh_token: refreshToken,
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to refresh access token');
       }
-  
+
       const tokenData = await response.json();
       return tokenData.access_token;
     } catch (error) {
@@ -73,13 +79,13 @@ useEffect(() => {
       return null;
     }
   }
-  const checkTokenExpiration = async() => {
+
+  const checkTokenExpiration = async () => {
     const tokenExpiration = window.localStorage.getItem("token_expiration");
     if (tokenExpiration) {
       const expirationTime = parseInt(tokenExpiration, 10);
       const currentTime = Math.floor(Date.now() / 1000);
-  
-     
+
       if (currentTime >= expirationTime - 60) {
         const refreshToken = window.localStorage.getItem("refresh_token");
         if (refreshToken) {
@@ -87,28 +93,23 @@ useEffect(() => {
             const newAccessToken = await refreshAccessToken(refreshToken);
             if (newAccessToken) {
               setToken(newAccessToken);
-             
             } else {
               console.error('Failed to refresh access token');
-             
             }
           } catch (error) {
             console.error('Error refreshing token:', error);
-           
           }
         } else {
           console.error('No refresh token found');
-          
         }
-       
-     }
+      }
     }
   };
-  
-  const tokenCheckInterval = setInterval(checkTokenExpiration, 5 * 60 * 1000);
-  return () => clearInterval(tokenCheckInterval);
-}, []);
 
+  useEffect(() => {
+    const tokenCheckInterval = setInterval(checkTokenExpiration, 5 * 60 * 1000);
+    return () => clearInterval(tokenCheckInterval);
+  }, []);
 
 
 useEffect(() => {
@@ -128,22 +129,41 @@ useEffect(() => {
     }
   
 },[])
-const [songListCover,setsongListCover]=useState()
-const [songListname,setsongListname]=useState()
- const handleShowSongList=(playlistImage,playlistName)=>{
+
+//playlist button to show playlists tracks
+const [PlayListCover,setPlayListCover]=useState()
+const [PlayListname,setPlayListname]=useState()
+const [trackLists,settrackLists]=useState()
+const [trackId,setTrackId]=useState()
+ const handleShowSongList=(playlistImage,playlistName,currentPlaylistTracks,tId)=>{
    setShowList(true)
-   setsongListCover(playlistImage)
-   setsongListname(playlistName)
-   
+   setPlayListCover(playlistImage)
+   setPlayListname(playlistName)
+   settrackLists(currentPlaylistTracks)
+   setTrackId(tId)
  }
+
+ //to sending props to player
+const [trackTitle,setTrackTitle]=useState()
+const[trackArtists,setArtists]=useState()
+const [trackLink,setTrackLink]=useState()
+const [trackImage,setTrackImage]=useState()
+const [fullTrack,setFullTrack]=useState()
+const handletrackPlay=(tTitle,tArtist,tLink,tImage,fTrack)=>{
+  setTrackTitle(tTitle)
+  setArtists(tArtist)
+  setTrackLink(tLink)
+  setTrackImage(tImage)
+  console.log(fTrack)
+}
   return(
 <>
-<section className='bg-black h-svh'>
+<section className=' bg-black h-screen w-full h-screen'>
 
-<section className='bg-black text-white grid-flex flex'>
-  <section className='w-3/12'> 
-      <div className='bg-black text-white py-3 px-1  '>
-        <div className='bg-neutral-900/75 p-2 mx-2 rounded-2xl' >
+<section className='relative bg-black text-white grid-flex flex h-screen'>
+  <section className='absolute fixed left-0 w-3/12 mr-10 '> 
+      <div className='fixed bg-black text-white py-3 px-1 w-3/12 mr-10 '>
+        <div className='bg-neutral-900/75 p-2 mx-2 rounded-2xl  ' >
           <div className='grid-flex flex p-6'>
             <span>
                 <img src='https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/spotify-white-icon.png' alt='spotify' className="w-10 h-10"/> 
@@ -208,7 +228,7 @@ const [songListname,setsongListname]=useState()
     </div>
       
     </section>
-   {!showList? <section className=' bg-neutral-900/75 w-3/4 rounded-2xl pt-3 h-min mr-3 mt-2'>
+   {!showList? <section className='static absolute right-0 bg-neutral-900/75 w-3/4 rounded-2xl pt-3 h-min mr-3 mt-2 '>
       <div className='grid-flex flex p-6 mb-6 h-7/2'>
         <span className='border-1 rounded-3xl bg-stone-950 w-13 h-12 p-2 '>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-9 h-9">
@@ -237,27 +257,35 @@ const [songListname,setsongListname]=useState()
       }
 
       </div> 
-      <div className='relative bg-zinc-800/50 p-4 pl-10 '>
+      <div className=' bg-zinc-800/50 p-4 pl-10 '>
           <h1 className='text-4xl font-extrabold hover:underline underline-offset-3'>Spotify Playlists</h1>
-       { !token?  <button className='absolute right-10 top-1 pt-3'><h4 className='text-2xl text-stone-400 hover:underline underline-offset-1 font-bold '>Show all</h4></button> : null}
-       
+       { !token?  <button className='absolute right-10 top-30 pt-3'><h4 className='text-2xl text-stone-400 hover:underline underline-offset-1 font-bold '>Show all</h4></button> : null}
+      { /* sending clicked event to playlists to used in chlid(playlistcard component)*/ }
       <PlayLists handleShowSongList={handleShowSongList}/>
      
       </div>
       
     </section> :
-    <div style={{backgroundImage:`url(${songListCover})`}} className='bg-cover w-full h-96 pt-10'>
-    <SongLists playlistImage={songListCover} playlistName={songListname}/>
+    <section className='className=" absolute overflow-y-auto h-lvh z-8 right-5 w-9/12'>
+      <div className=" bg-gradient-to-b from-yellow-500 from-10% via-yellow-600 via-50% to-neutral-900 to-90% bg-cover pt-10 pb-10">
+    {/*playlist tracks*/}
+    <SongLists playlistImage={PlayListCover} playlistName={PlayListname} currentPlaylistTracks={trackLists} handletrackPlay={handletrackPlay}/>
+   
     </div>
+    </section>
+    
 }  
 </section>   
-  {!token?<div className='bg-black grid-flex flex font-bold text-2xl text-white bg-stone-800  m-5 p-4 mr-4 pb-3 pl-3 tracking-wide bg-gradient-to-r from-pink-500 to-blue-400'>
+  {!token?<div className='absolute bottom-0 w-full bg-black grid-flex flex font-bold text-2xl text-white bg-stone-800  m-5 p-4 mr-4 pb-3 pl-3 tracking-wide bg-gradient-to-r from-pink-500 to-blue-400'>
         <span>
           <h2>Prieview of Spotify</h2>
           <p>Sign up to get unlimited songs and podcasts with occassional ads. No credit card needed</p>
         </span>
         <button className='absolute right-2 bg-white text-black ml-16 w-46 p-6 pl-12 pr-12 rounded-full mr-16' onClick={handleNavtoSignup}> Sign up for free</button>
-  </div> :null } 
+  </div> :<div className=' fixed bottom-0 mt-10 w-full bg-black text-white'>
+ 
+  <MusicPlayer trackTitle={trackTitle} trackArtist={trackArtists} currentTrack={trackLink} trackImage={trackImage} trackId={trackId}/>
+</div> } 
 </section>
 
 

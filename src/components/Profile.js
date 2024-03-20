@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { Icon } from "semantic-ui-react";
 
+
+
 const UserProfile=()=>{
     const [isOpen, setIsOpen] = useState(false);
     const [userData,setUserData]=useState(null)
     const[showName,setshowname]=useState(false)
     let [accessToken,setAccesstoken]=useState(window.localStorage.getItem('token'))
     let [userImage,setuserImage]=useState()
+   
+  
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -21,6 +25,7 @@ const UserProfile=()=>{
     const fetchUserData = async () => {
      
       try {
+        
         const response = await fetch('https://api.spotify.com/v1/me', {
           headers: {
             Authorization: `Bearer ${accessToken}`,

@@ -20,3 +20,8 @@
 .scrollable-div::-webkit-scrollbar-track {
   background-color: #eee; /* Color of the scrollbar track */
 }
+
+audio::-webkit-media-controls {
+  background-color: #f2f2f2;
+  color: #333;
+}

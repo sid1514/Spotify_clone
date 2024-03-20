@@ -2,13 +2,13 @@ import { Icon } from "semantic-ui-react";
 import { useState } from "react";
 
 
-const PlayListsCard=({PlayListImage,PlayListName,PlayListcDescribe,token,handleSignInmodal,handleShowList})=>{
+const PlayListsCard=({PlayListImage,PlayListName,PlayListcDescribe,token,handleSignInmodal,handleShowList,currentPlaylistTracks})=>{
   const [playbtDisplay,setplayDisplay]=useState(false);
   
   
   
     return(<>
-     <div className="bg-neutral-900 w-1/7 rounded-2xl ml-6 p-4 h-min hover:bg-neutral-800" onMouseEnter={()=>setplayDisplay(true)} onMouseLeave={()=>setplayDisplay(false)} onClick={()=>{handleShowList(PlayListImage,PlayListName)}}>
+     <div className="bg-neutral-900 w-1/7 rounded-2xl ml-6 p-4 h-min hover:bg-neutral-800" onMouseEnter={()=>setplayDisplay(true)} onMouseLeave={()=>setplayDisplay(false)} onClick={()=>{handleShowList(PlayListImage,PlayListName,currentPlaylistTracks)}}>
    <span className="relative">
      <img src={PlayListImage} alt="music" className="w-80 h-80 rounded-3xl pt-5 px-2 shadow-2xl" />
   
@@ -22,7 +22,9 @@ const PlayListsCard=({PlayListImage,PlayListName,PlayListcDescribe,token,handleS
     </span>
     
         <h2 className="m-4 pl-3">{PlayListName}</h2>
-        <p className="truncate w-64 h-16 m-4  pb-4 pl-3 overflow-hidden overflow-ellipsis text-2xl text-zinc-500 font-bold">{PlayListcDescribe}.</p>
+        <p className="truncate w-64 h-16 m-4  pb-4 pl-3 overflow-hidden overflow-ellipsis
+        
+        text-2xl text-zinc-500 font-bold">{PlayListcDescribe}.</p>
   
   </div>
     </>)

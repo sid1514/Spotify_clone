@@ -1,13 +1,17 @@
 import Switch from "react-switch";
 import { useEffect, useState } from "react";
+
+import LoginState from "./LoginState";
+
 const LogIn=()=>{
   const [checked, setChecked] = useState(true);
- 
+ const [loginstate,setLoginstate]=useState(true)
+
   const handleChange = val => {
     setChecked(val)
   }
-  const CLIENT_ID = "026e1209e275417584cec6e6c784b65d"
-  const CLIENT_SECRET='219e5dc1a84049b793479bfe10db5bbf'
+  const CLIENT_ID = process.env.REACT_API_CLIENT_ID
+  
   const REDIRECT_URI = "http://localhost:3000/";
   const RESPONSE_TYPE="token"
   const AUTH_ENDPOINT="https://accounts.spotify.com/authorize"
@@ -15,6 +19,7 @@ const LogIn=()=>{
   const handleGoogleLogin = () => {
     // Redirect user to Spotify login page
     window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
+    
   };
 
     return(<>

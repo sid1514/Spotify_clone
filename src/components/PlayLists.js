@@ -56,10 +56,10 @@ const PlayLists=({handleShowSongList})=>{
         <button className='absolute top-1 pt-3 right-3'><h4 className='text-2xl text-stone-400 hover:underline underline-offset-1 font-bold ' onClick={()=>setShowmore(!showmore)}>Show all</h4></button>
   { featuredPlaylists? 
   (<div  className="grid grid-cols-6 m-1">
-    {featuredPlaylists.playlists.items.slice(0,showmore?featuredPlaylists.playlists.items.length:6).map(playlist => (
+    {featuredPlaylists.playlists.items.slice(0,showmore?featuredPlaylists.playlists.items.length:6).map((playlist,index) => (
       
       <div key={playlist.id}>
-       { <PlayListsCard PlayListName={playlist.name} PlayListImage={playlist.images[0].url} PlayListcDescribe={playlist.description} handleShowList={handleShowSongList}/>}
+       { <PlayListsCard PlayListName={playlist.name} PlayListImage={playlist.images[0].url} PlayListcDescribe={playlist.description} handleShowList={handleShowSongList}  currentPlaylistTracks={index+1}/>}
       </div>
     ))}
    </div> ):
