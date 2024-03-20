@@ -10,8 +10,9 @@ const LogIn=()=>{
   const handleChange = val => {
     setChecked(val)
   }
+
   const CLIENT_ID = process.env.REACT_API_CLIENT_ID
-  
+
   const REDIRECT_URI = "http://localhost:3000/";
   const RESPONSE_TYPE="token"
   const AUTH_ENDPOINT="https://accounts.spotify.com/authorize"

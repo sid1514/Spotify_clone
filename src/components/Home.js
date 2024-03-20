@@ -51,8 +51,8 @@ const [token, setToken] = useState(null);
   }, []);
 
   async function refreshAccessToken(refreshToken) {
-    const clientId = 'your_client_id';
-    const clientSecret = 'your_client_secret';
+ const clientId=process.env.REACT_API_CLIENT_ID
+const clientSecret=process.env.REACT_API_CLIENT_SECRET
     const apiUrl = 'https://accounts.spotify.com/api/token';
 
     try {
