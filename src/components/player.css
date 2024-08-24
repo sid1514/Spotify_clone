@@ -11,6 +11,7 @@ audio {
   audio::-webkit-media-controls {
     background-color: black;
     /* Change control icons color */
+    color: rgb(253, 254, 255);
 }
 
 /* Customize the appearance of the audio player bar */
@@ -35,8 +36,8 @@ audio::-webkit-media-controls-panel {
   /* Customize the appearance of the volume control */
   input[type="range"] {
     -webkit-appearance: none;
-    width: 100%;
-    height: 8px;
+    width: 60%;
+    height: 6px;
     background-color: #e7dada; /* Change the color of the slider track */
     border-radius: 5px;
     
@@ -45,11 +46,12 @@ audio::-webkit-media-controls-panel {
  
   input[type="range"]:hover {
     -webkit-appearance: none;
-    width: 100%;
-    height: 8px;
-    background-color: #3c9c4a; /* Change the color of the slider track */
+    width: 60%;
+    height: 6px;
+    background-color: #317e31; /* Change the color of the slider track */
     border-radius: 5px;
-    margin: 0 10px;
+    margin-top: 9px; 
+    color: #ffffff;
   }
   input[type="range"]:focus {
     outline: none;
@@ -63,6 +65,7 @@ audio::-webkit-media-controls-panel {
     background-color: #ffffff; /* Change the color of the slider thumb */
     border-radius: 50%;
     cursor: pointer;
+    color: #ffffff;
   }
   
   input[type="range"]::-moz-range-thumb {
@@ -85,3 +88,10 @@ audio::-webkit-media-controls-panel {
   input[type="range"]:hover::-moz-range-thumb {
     background-color: #ffffff; /* Change the color of the thumb on hover for Firefox */
   }
+
+
+.custom-audio-controls::-webkit-media-controls-volume-slider
+ {
+   display: none;
+}
+  

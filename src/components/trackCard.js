@@ -1,6 +1,6 @@
-import { Icon } from "semantic-ui-react";
+import './custom.css'
 import { useState,useEffect } from "react";
-const TrackCard=({TrackId,TrackTitle,TrackAlbum,TrackAdded,TrackDuration,TrackImage,TrackArtist,handletrackPlay,TrackLink,fullTracks})=>{
+const TrackCard=({TrackId,TrackTitle,TrackAlbum,TrackAdded,TrackDuration,TrackImage,TrackArtist,handletrackPlay,TrackLink})=>{
     const [daysAdded, setDaysAdded] = useState(0);
   
     useEffect(() => {
@@ -25,13 +25,13 @@ const TrackCard=({TrackId,TrackTitle,TrackAlbum,TrackAdded,TrackDuration,TrackIm
     
     return (<>
     
-    <div className="text-white" onClick={()=>handletrackPlay(TrackTitle,TrackArtist,TrackLink,TrackImage,TrackId,fullTracks)}>
-        <table>
+    <div className="text-white" onClick={()=>handletrackPlay(TrackTitle,TrackArtist,TrackLink,TrackImage,TrackId)}>
+        <table className="tracks">
             
-            <tr>
-                <td>
+            <tr >
+                <td >
 
-                   <h3>{TrackId}</h3> 
+                  {TrackId}
                 </td>
                 <td className="grid-flex flex ml-10 mt-2 ">
                     <span className="mr-6 ">
