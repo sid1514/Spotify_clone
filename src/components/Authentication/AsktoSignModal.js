@@ -5,19 +5,18 @@ const AskSignIn = ({ open, setOpen, playListImg, PlayListsName }) => {
   return (
     <>
       <Modal
-        open={open}
         onClose={() => setOpen(false)}
-        size="large"
+        onOpen={() => setOpen(true)}
+        open={open}
+        size="smaller"
         className="rounded-2xl "
       >
         <div className="flex grid-flex bg-gradient-to-b from-red-600 to-neutral-900 pt-28 w-auto ">
-          <div className=" h-5/6 w-3/4  pl-20 mr-10">
+          <div className="h-1/3 w-2/3  pl-20 mr-10">
             <img
               src={playListImg}
               alt="playlist"
-              width={420}
-              height={600}
-              className="absolute"
+              className="absolute w-1/3 h-1/2"
             />
 
             <img
@@ -29,11 +28,11 @@ const AskSignIn = ({ open, setOpen, playListImg, PlayListsName }) => {
               {PlayListsName}
             </p>
           </div>
-          <div className="pr-20 w-auto pb-14">
-            <h3 className="text-white text-5xl font-extrabold w-10/12">
+          <div className="pr-20 w-auto pb-14 ">
+            <p className="text-white text-4xl font-extrabold w-10/12 pl-12">
               {" "}
               Start listening with a free Spotify account
-            </h3>
+            </p>
             <button className="bg-green-500 text-black  w-80 p-6 rounded-full px-10 mt-10 ml-20 hover:scale-105 font-extrabold">
               <h2>Sign up for free</h2>
             </button>
@@ -49,9 +48,9 @@ const AskSignIn = ({ open, setOpen, playListImg, PlayListsName }) => {
         </div>
 
         <button onClick={() => setOpen(false)} className="bg-black w-full ">
-          <h3 className=" opacity-100 text-zinc-500 font-bold text-2xl hover:text-white">
+          <p className=" opacity-100 text-zinc-500 font-bold text-2xl hover:text-white">
             Close
-          </h3>
+          </p>
         </button>
       </Modal>
     </>

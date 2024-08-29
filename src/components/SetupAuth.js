@@ -10,14 +10,15 @@ const SetupAuth = () => {
   const nav = useNavigate();
   const getAuthAccessToken = () => {
     let hash = window.location.hash;
-    if (hash && !access_token) {
+    let token = window.localStorage.getItem("token");
+    if (hash && !token) {
       access_token = hash
         .substring(1)
         .split("&")
         .find((elem) => elem.startsWith("access_token"))
         .split("=")[1];
-      localStorage.setItem("access_token", access_token);
-      //dispatch(setAccessToken(access_token));
+      window.localStorage.setItem("access_token", access_token);
+      dispatch(setAccessToken(access_token));
       nav("/");
     }
   };

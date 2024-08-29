@@ -47,7 +47,7 @@ function Home() {
 
   return (
     <>
-      <div className="bg-black w-full h-[100vh]">
+      <div className="bg-black w-full h-screen">
         {!access_token ? (
           <div className="flex z-0">
             <div className="w-[24%]">

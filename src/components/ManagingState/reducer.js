@@ -1,5 +1,6 @@
 // reducer.js
 import {
+  REMOVE_ACCESS_TOKEN,
   SET_ACCESS_TOKEN,
   SET_SELECT_ALBUM,
   SET_SELECT_ARTIST,
@@ -15,7 +16,7 @@ const initialState = {
   SelectedAlbum: null,
   showMore: false,
   trackData: null,
-  AccessToken: localStorage.getItem("access_token"),
+  AccessToken: null,
   userData: null,
 };
 
@@ -47,7 +48,11 @@ const authReducer = (state = initialState, action) => {
         ...state,
         AccessToken: action.payload,
       };
-
+    case REMOVE_ACCESS_TOKEN:
+       return {
+         ...state,
+         AccessToken: null,
+       };
     case SHOW_MORE:
       return {
         ...state,

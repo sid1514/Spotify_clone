@@ -7,6 +7,7 @@ export const SET_SHOWTRACK = "SET_SHOWTRACK";
 export const SET_TRACK = "SET_TRACK";
 export const SHOW_MORE = "SHOW_MORE";
 export const SET_USER_DATA = "USER_DATA";
+export const REMOVE_ACCESS_TOKEN = "REMOVE_ACCESS_TOKEN";
 export const setToken = (newVal) => ({
   type: SET_TOKEN,
   payload: newVal,
@@ -21,6 +22,9 @@ export const setAccessToken = (newVal) => ({
   payload: newVal,
 });
 
+export const removeAccessToken = () => ({
+  type:REMOVE_ACCESS_TOKEN,
+})
 export const setSelectArtist = (selctedArtists) => ({
   type: SET_SELECT_ARTIST,
   payload: selctedArtists,

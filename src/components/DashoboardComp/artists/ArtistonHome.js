@@ -33,7 +33,7 @@ const ArtistonHome = () => {
 
   useEffect(() => {
     getArtists();
-  });
+  }, [accessToken]);
 
   const handleArtistClick = (artist) => {
     dispatch(setSelectArtist(artist));

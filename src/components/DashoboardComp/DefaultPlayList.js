@@ -7,7 +7,11 @@ import Footer from "./Footer";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { setSelectArtist, setShowMore } from "../ManagingState/action";
+import {
+  setSelectAlbum,
+  setSelectArtist,
+  setShowMore,
+} from "../ManagingState/action";
 import DisplayAlbum from "./Albums/DisplayAlbum";
 import DisplayTracks from "./artists/DisplayTracks";
 import DisplayAlbumTracks from "./Albums/DisplayAlbumTracks";
@@ -28,12 +32,13 @@ const DefaultPlayList = () => {
   const dispatch = useDispatch();
   const handleNavBack = () => {
     dispatch(setSelectArtist(null));
+    dispatch(setSelectAlbum(null));
     dispatch(setShowMore(false));
   };
   return (
     <>
       <div className="w-full mx-3 " id="maindiv">
-        <div className="relative w-[80%] " id="navbar_signDiv">
+        <div className="relative w-[80%] z-10" id="navbar_signDiv">
           <div
             className={`w-full flex ${
               SelectedArtist ? "bg-transparent" : "bg-neutral-950"
@@ -96,16 +101,19 @@ const DefaultPlayList = () => {
               </button>
             </div>
           </div>
-          
         </div>
 
         <div className="bg-zinc-800/50 overflow-y-auto h-[90vh] w-[99%] ">
           <div className="bg-neutral-900 ">
-            <div>{SelectedArtist ? <DisplayTracks /> : <ArtistonHome />}</div>
             <div>
-              {!SelectedArtist & !Selectedalbum ? <DisplayAlbum /> : <DisplayAlbumTracks/>}
-
-              
+              {SelectedArtist ? (
+                <DisplayTracks />
+              ) : Selectedalbum ? null : (
+                <ArtistonHome />
+              )}
+            </div>
+            <div>
+              {Selectedalbum ? <DisplayAlbumTracks /> : SelectedArtist?null: <DisplayAlbum />}
             </div>
           </div>
 

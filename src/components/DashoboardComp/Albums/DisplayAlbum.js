@@ -33,7 +33,7 @@ const DisplayAlbum = () => {
   const displayAlbum = showMore ? Album : Album.slice(0, 6);
   useEffect(() => {
     getAlbums();
-  });
+  },[accessToken]);
 
   const handleAlbumClick = (album) => {
     dispatch(setSelectAlbum(album));

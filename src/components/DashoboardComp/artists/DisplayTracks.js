@@ -39,7 +39,7 @@ const DisplayTracks = () => {
 
   useEffect(() => {
     handleArtistClick();
-  });
+  }, [SelectedArtist, accessToken]);
 
   const divStyle = {
     width: "100%",
