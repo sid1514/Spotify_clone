@@ -1,8 +1,18 @@
-import React from 'react'
+import React from "react";
 
-const PlayListcard = ({PlayListID,PlayListImg,PlayListName,PlayListArtist}) => {
+const PlayListcard = ({
+  PlayListID,
+  PlayListImg,
+  PlayListName,
+  PlayListArtist,
+  FullPlaylist,
+  handleArtistClick,
+}) => {
   return (
-    <div className="rounded relative w-1/6 mb-2">
+    <div
+      className="rounded relative w-1/6 mb-2"
+      onClick={() => handleArtistClick(FullPlaylist)}
+    >
       <img
         src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/spotify-white-icon.png"
         alt="spotify"
@@ -16,6 +26,6 @@ const PlayListcard = ({PlayListID,PlayListImg,PlayListName,PlayListArtist}) => {
       </div>
     </div>
   );
-}
+};
 
-export default PlayListcard
+export default PlayListcard;

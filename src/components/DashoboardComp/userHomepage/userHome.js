@@ -1,16 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeAccessToken } from "../../ManagingState/action";
+import { removeAccessToken, setSelectArtist } from "../../ManagingState/action";
 import Userlibrary from "./Userlibrary";
 import UserPlaylistSection from "./UserPlaylistSection";
+import DisplayTracks from "../artists/DisplayTracks";
+
 
 const UserHome = () => {
   const [userData, setuserData] = useState(null);
   const [userSection, setUserSection] = useState(false);
   const dispatch = useDispatch();
   const access_token = useSelector((state) => state.AccessToken);
-   
+  const SelectedArtist = useSelector((state) => state.Selectedartist);
   const fetchUserData = async () => {
     try {
       const { data } = await axios.get("https://api.spotify.com/v1/me", {
@@ -46,7 +48,7 @@ const UserHome = () => {
             />
           </div>
           <div className="flex w-1/3">
-            <div>
+            <div onClick={()=>dispatch(setSelectArtist(null))}>
               <img
                 src="https://cdn-icons-png.freepik.com/256/13823/13823941.png"
                 alt="home"
@@ -117,12 +119,16 @@ const UserHome = () => {
           </div>
         </div>
 
-        <div className="flex h-screen ">
-          <div className="w-[25%]">
+        <div className="flex h-[100%] relative">
+          <div className="w-[25%] ">
             <Userlibrary />
           </div>
-          <div className="w-9/12 h-full ">
-            <UserPlaylistSection userName={userData?.display_name} />
+          <div className="w-9/12 h-full pb-10 overflow-y-auto ">
+            {
+              SelectedArtist?
+              <DisplayTracks/>:
+              <UserPlaylistSection userName={userData?.display_name} />
+            }
           </div>
         </div>
       </div>

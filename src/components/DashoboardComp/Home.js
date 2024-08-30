@@ -14,6 +14,7 @@ function Home() {
   const dispatch = useDispatch();
   const access_token = useSelector((state) => state.AccessToken);
   const track = useSelector((state) => state.trackData);
+
   //get defautlt access token
   const getToken = async () => {
     const tokenUrl = "https://accounts.spotify.com/api/token";
@@ -64,16 +65,7 @@ function Home() {
         )}
         <div className="z-1 fixed w-full bottom-0">
           <div>
-            {track ? (
-              <MusicPlayer
-                trackTitle={track.name}
-                trackArtist={track.artists[0].name}
-                currentTrack={track.priveiw_url}
-                trackImage={track.album.images[2].url}
-              />
-            ) : !access_token ? (
-              <FooterSignup />
-            ) : null}
+            {track ? <MusicPlayer /> : !access_token ? <FooterSignup /> : null}
           </div>
         </div>
       </div>

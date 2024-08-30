@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PlayListcard from "./PlayListcard";
+import { setSelectArtist } from "../../../ManagingState/action";
 
 const UserPlayLists = ({ showMoreArtists, userName, setShowMoreArtists }) => {
   const access_token = useSelector((state) => state.AccessToken);
   const [userPlayList, setUserPlayList] = useState([]);
-
+ 
+const dispatch=useDispatch()
   const fetchUserPlaylists = async () => {
     const config = {
       headers: {
@@ -31,6 +33,12 @@ const UserPlayLists = ({ showMoreArtists, userName, setShowMoreArtists }) => {
   useEffect(() => {
     fetchUserPlaylists();
   }, [access_token]);
+
+  const handleArtistClick = (artist) => {
+    dispatch(setSelectArtist(artist));
+
+    //nav("/tracks");
+  };
   return (
     <>
       <div>
@@ -49,6 +57,8 @@ const UserPlayLists = ({ showMoreArtists, userName, setShowMoreArtists }) => {
               PlayListID={p.id}
               PlayListImg={p.images[2].url}
               PlayListArtist={p.name}
+              FullPlaylist={p}
+              handleArtistClick={handleArtistClick}
             />
           ))}
         </div>

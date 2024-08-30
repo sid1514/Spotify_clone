@@ -27,8 +27,8 @@ const SetupAuth = () => {
     getAuthAccessToken();
   });
   return (
-    <div>
-      <Segment>
+    <div className="h-[60%]">
+      <Segment size="large">
         <Dimmer active>
           <Loader indeterminate>Signin user with spotify</Loader>
         </Dimmer>

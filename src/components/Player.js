@@ -1,22 +1,42 @@
 import { Icon } from "semantic-ui-react";
-import { useState } from "react";
-import "./player.css";
 
-const MusicPlayer = ({ trackTitle, trackArtist, currentTrack, trackImage }) => {
+import { useSelector } from "react-redux";
+import "./player.css";
+import { useRef, useState } from "react";
+
+const MusicPlayer = () => {
+  const track = useSelector((state) => state.trackData);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audioRef, setAudioRef] = useState(null);
+  const audioRef = useRef(null);
+  if (!track || !track.preview_url) {
+    return <div>No track available for playback.</div>;
+  }
+
+  const trackTitle = track.name;
+  const trackArtist = track.artists[0].name;
+  const currentTrack = track.preview_url;
+  const trackImage = track.album.images[2].url;
+
   const togglePlay = () => {
-    if (audioRef.paused) {
-      audioRef.play();
+    if (audioRef.current.paused) {
+      audioRef.current.play();
       setIsPlaying(true);
     } else {
-      audioRef.pause();
+      audioRef.current.pause();
       setIsPlaying(false);
     }
   };
+
+  const handleVolumeChange = (e) => {
+    const volume = e.target.value;
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  };
+
   return (
     <>
-      <section className=" bg-black flex justify-center items-center space-x-40 text-white text-sm">
+      <section className="bg-black flex justify-center items-center space-x-40 text-white text-sm">
         <div className="flex justify-between items-center m-5">
           <div className="flex items-center">
             <img
@@ -36,9 +56,10 @@ const MusicPlayer = ({ trackTitle, trackArtist, currentTrack, trackImage }) => {
             <Icon name="add" size="small" />
           </div>
         </div>
-        <div className=" flex justify-center">
+
+        <div className="flex justify-center">
           <div className="flex flex-col justify-center items-center">
-            <div className=" space-x-5 pl-20 mt-2">
+            <div className="space-x-5 pl-20 mt-2">
               <Icon name="shuffle" size="big" color="grey" />
               <Icon name="step backward" size="big" color="grey" />
               <Icon
@@ -53,7 +74,7 @@ const MusicPlayer = ({ trackTitle, trackArtist, currentTrack, trackImage }) => {
 
             <br></br>
             <audio
-              ref={(ref) => setAudioRef(ref)}
+              ref={audioRef}
               autoPlay={isPlaying}
               controls
               onEnded={() => setIsPlaying(false)}
@@ -63,8 +84,8 @@ const MusicPlayer = ({ trackTitle, trackArtist, currentTrack, trackImage }) => {
           </div>
         </div>
 
-        <div className="flex justify-end space-x-5 ">
-          <Icon name="play " color="white" className="  " size="small" />
+        <div className="flex justify-end space-x-5">
+          <Icon name="play" color="white" size="small" />
           <img src="LyricalMic.png" alt="lyrics" className="w-10 h-10" />
           <Icon name="content" size="small" />
           <Icon name="computer" size="small" />
@@ -72,7 +93,13 @@ const MusicPlayer = ({ trackTitle, trackArtist, currentTrack, trackImage }) => {
             <div>
               <Icon name="volume down" size="small" />
             </div>
-            <input type="range" min="0" max="1" step="0.01" />
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              onChange={handleVolumeChange}
+            />
             <span className="-rotate-45 ml-2">
               <Icon name="arrow left" size="small" />
               <Icon name="arrow right" size="small" />
@@ -83,4 +110,5 @@ const MusicPlayer = ({ trackTitle, trackArtist, currentTrack, trackImage }) => {
     </>
   );
 };
+
 export default MusicPlayer;

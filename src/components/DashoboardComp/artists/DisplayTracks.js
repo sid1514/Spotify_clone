@@ -82,7 +82,7 @@ const DisplayTracks = () => {
         </div>
       </div>
       <p className=" pl-4 text-2xl">Popular</p>
-      <div className="pb-10 ">
+      <div className="pb-10 h-full overflow-y-auto">
         {Tracks && SelectedArtist ? (
           Tracks.map((t, index) => (
             <div className=" relative " onClick={() => handleTrackClick(t)}>

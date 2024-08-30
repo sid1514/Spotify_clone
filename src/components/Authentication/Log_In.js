@@ -14,7 +14,8 @@ const LogIn = () => {
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT;
   const RESPONSE_TYPE = "token";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const scope ="playlist-read-private playlist-read-collaborative user-read-private user-read-email user-top-read";
+  const scope =
+    "playlist-read-private playlist-read-collaborative user-read-private user-read-email user-top-read user-read-playback-state user-modify-playback-state";
   const handleGoogleLogin = () => {
     // Redirect user to Spotify login page
     window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${scope}`;
