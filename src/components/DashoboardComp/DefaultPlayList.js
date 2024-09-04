@@ -38,14 +38,15 @@ const DefaultPlayList = () => {
   return (
     <>
       <div className="w-full mx-3 " id="maindiv">
-        <div className="relative w-[80%] z-10" id="navbar_signDiv">
+        <div className="relative md:w-[80%] w-full z-10" id="navbar_signDiv">
           <div
             className={`w-full flex ${
               SelectedArtist ? "bg-transparent" : "bg-neutral-950"
-            } h-20 fixed top-0 items-center justify-between"
-            id="child_navbar_signDiv`}
+            } h-20 fixed top-0 pt-10 md:pt-0 items-center justify-between"
+            `}
+           
           >
-            <div className=" p-6 mb-6 align-center flex " id="arrowsDiv">
+            <div className="p-6 mb-6 align-center flex pl-8" id="arrowsDiv">
               <div
                 className={`border-1 rounded-3xl bg-black w-12 h-12 p-2 text-white`}
                 onClick={handleNavBack}
@@ -54,9 +55,9 @@ const DefaultPlayList = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth="1.5"
+                  strokeWidth="1.3"
                   stroke="currentColor"
-                  className="w-9 h-9"
+                  className="md:w-9 md:h-9 w-6 h-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -70,9 +71,9 @@ const DefaultPlayList = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth="1.5"
+                  strokeWidth="1.3"
                   stroke="currentColor"
-                  className="w-9 h-9 ml-1"
+                  className="md:w-9 md:h-9 w-6 h-6 md:ml-1"
                 >
                   <path
                     strokeLinecap="round"
@@ -84,17 +85,17 @@ const DefaultPlayList = () => {
             </div>
 
             <div
-              className="absolute right-[25%] flex h-min mr-10 "
+              className="md:absolute md:right-[25%] flex h-min mr-10 "
               id="signInDiv"
             >
               <button
                 onClick={handleNavtoSignup}
-                className="text-neutral-400 hover:text-white text-xl mr-10 w-24"
+                className="w-16 text-neutral-400 hover:text-white md:text-xl mr-10 md:w-24 text-auto"
               >
                 Sign up
               </button>
               <button
-                className="bg-white text-black h-10 rounded-full font-extrabold px-4 w-24 shadow-lg"
+                className="w-16 bg-white text-black h-10 rounded-full font-extrabold px-4 md:w-24 shadow-lg"
                 onClick={handleNavtoLogin}
               >
                 Log in
@@ -103,7 +104,7 @@ const DefaultPlayList = () => {
           </div>
         </div>
 
-        <div className="bg-zinc-800/50 overflow-y-auto h-[90vh] w-[99%] ">
+        <div className="bg-zinc-800/50 overflow-y-auto md:h-[90vh] md:w-[99%] ">
           <div className="bg-neutral-900 ">
             <div>
               {SelectedArtist ? (

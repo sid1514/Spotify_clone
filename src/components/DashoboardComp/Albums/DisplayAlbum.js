@@ -13,7 +13,6 @@ const DisplayAlbum = () => {
     if (!accessToken) return;
 
     try {
-     
       const response = await axios.get(
         "https://api.spotify.com/v1/browse/new-releases",
         {
@@ -24,7 +23,6 @@ const DisplayAlbum = () => {
       );
       //console.log(response.data.albums.items);
       setAlbums(response.data.albums.items);
-      
     } catch (error) {
       console.error("Error getting artists:", error);
     }
@@ -33,39 +31,41 @@ const DisplayAlbum = () => {
   const displayAlbum = showMore ? Album : Album.slice(0, 6);
   useEffect(() => {
     getAlbums();
-  },[accessToken]);
+  }, [accessToken]);
 
   const handleAlbumClick = (album) => {
     dispatch(setSelectAlbum(album));
-    
   };
   return (
     <>
       <div className=" p-4 pl-10 flex mt-6">
-        <p className=" text-2xl font-extrabold hover:underline underline-offset-3 text-white w-11/12">
+        <p className=" md:text-2xl font-extrabold hover:underline underline-offset-3 text-white md:w-11/12 w-8/12">
           Popular albums
         </p>
 
         <button
-          className=" top-30 pt-3"
+          className=" top-30 md:pt-3"
           onClick={() => dispatch(setShowMore(true))}
         >
-          <p className="text-xl text-stone-400 hover:underline underline-offset-1 font-bold">
+          <p className="md:text-xl text-stone-400 hover:underline underline-offset-1 font-bold">
             Show all
           </p>
         </button>
       </div>
       <div className="flex flex-wrap text-white ">
         {displayAlbum.map((a) => (
-          <div className="rounded-xl space-x-6 px-5 py-4 mb-4 group relative hover:bg-neutral-800" onClick={()=>handleAlbumClick(a)}>
+          <div
+            className="rounded-xl space-x-6 px-5 py-4 mb-4 group relative hover:bg-neutral-800"
+            onClick={() => handleAlbumClick(a)}
+          >
             <div className=" relative">
               <img
                 src={a.images[2].url}
                 alt=""
-                className="w-36 h-36 mb-2 rounded"
+                className="md:w-36 md:h-36 w-24 h-24 mb-2 rounded"
               />
             </div>
-            <div className="w-36 text-sm flex align-center ">
+            <div className="md:w-36 w-24 text-sm flex align-center ">
               <div className="text-left">
                 <label className="flex ">{a.name}</label>
                 <p className="flex ">

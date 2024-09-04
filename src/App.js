@@ -4,7 +4,7 @@ import Home from "./components/DashoboardComp/Home";
 import Signup from "./components/Authentication/SignUp";
 import LogIn from "./components/Authentication/Log_In";
 import SetupAuth from "./components/SetupAuth";
-
+import "./App.css";
 function App() {
   return (
     <>

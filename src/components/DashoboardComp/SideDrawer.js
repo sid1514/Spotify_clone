@@ -5,18 +5,20 @@ const SideDrawer = () => {
   return (
     <>
       <section className="absolute fixed left-0 ">
-        <div className="fixed bg-black text-white py-3 px-1 w-3/12 mr-2 h-min">
-          <div className="bg-neutral-900/75 p-2 mx-2 rounded-2xl">
+        <div className="fixed bg-black text-white md:py-3 py-6 md:px-1 pl-10 md:pl-0 md:w-3/12 w-1/2 mr-2 h-min ">
+          <div className="bg-neutral-900/75 p-2 mx-2 rounded-2xl ">
             <div className=" flex p-6 align-center">
               <div>
                 <img
                   src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/spotify-white-icon.png"
                   alt="spotify"
-                  className="w-8 h-8"
+                  className="md:w-8 md:h-8 w-6 h-6"
                 />
               </div>
               <div>
-                <p className="px-1 pt-1 text-xl font-bold">Spotify</p>
+                <p className="px-1 pt-1 md:text-xl text-sm font-bold ">
+                  Spotify
+                </p>
               </div>
             </div>
             <div className="flex align-center m-2 ml-5">
@@ -24,13 +26,11 @@ const SideDrawer = () => {
                 <img
                   src="https://cdn-icons-png.freepik.com/256/13823/13823941.png"
                   alt="home"
-                  width={35}
-                  height={20}
-                  className="px-1 h-6"
+                  className="md:px-1 md:h-6 w-6"
                 />
               </div>
               <div>
-                <p className="text-xl px-4 font-extrabold tracking-wide">
+                <p className="md:text-xl text-sm md:px-4 px-1 font-extrabold tracking-wide">
                   Home
                 </p>
               </div>
@@ -40,13 +40,11 @@ const SideDrawer = () => {
                 <img
                   src="https://www.freepnglogos.com/uploads/search-png/search-icon-transparent-images-vector-16.png"
                   alt="search"
-                  width={30}
-                  height={30}
-                  className="px-1 h-7"
+                  className="px-1 h-6 w-6"
                 />
               </div>
               <div>
-                <p className="text-xl px-2 font-extrabold tracking-wide pb-3 text-stone-400 hover:text-white">
+                <p className="md:text-xl text-auto px-2 font-extrabold tracking-wide pb-3 text-stone-400 hover:text-white">
                   Search
                 </p>
               </div>
@@ -59,13 +57,11 @@ const SideDrawer = () => {
                 <img
                   src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTWJDxuISVM6fyN3CFukt6Fs3sy4PDnOoxVhgYx06AtI1yiGFNy"
                   alt="library"
-                  width={44}
-                  height={34}
-                  className="px-1 h-12"
+                  className="px-1 h-8 w-8"
                 />
               </span>
               <span>
-                <p className="text-xl px-4 pt-3 font-extrabold tracking-wide text-stone-400 hover:text-white">
+                <p className="md:text-xl text-sm px-4 pt-3 font-extrabold tracking-wide text-stone-400 hover:text-white">
                   Your Library
                 </p>
               </span>
@@ -74,8 +70,7 @@ const SideDrawer = () => {
                   <img
                     src="https://www.pngall.com/wp-content/uploads/10/Plus-Symbol-PNG-Images-HD.png"
                     alt="add"
-                    width={26}
-                    className="px-1 h-6"
+                    className="px-1 h-6 w-6"
                   />
                 </button>
               </span>
@@ -85,16 +80,16 @@ const SideDrawer = () => {
               <div className="bg-neutral-800 m-2 p-4 rounded-2xl">
                 <p className="font-bold">Create your first playlist</p>
                 <p className="">It's easy, we'll help you</p>
-                <button className="bg-white text-black w-44 h-12 px-3 rounded-full font-bold tracking-wide transform hover:scale-110">
+                <button className="bg-white text-black md:w-44 h-12 px-3 rounded-full font-bold tracking-wide transform hover:scale-110">
                   Create playlist
                 </button>
               </div>
               <div className="bg-neutral-800 m-2 my-12 p-10 rounded-2xl">
                 <p>Let's find some podcasts to follow</p>
-                <p className="text-xl">
+                <p className="md:text-xl">
                   We'll keep you updated on new episodes
                 </p>
-                <button className="bg-white text-black w-48 h-12 rounded-3xl px-3 font-bold tracking-wide transform hover:scale-110">
+                <button className="bg-white text-black md:w-48 h-12 rounded-3xl px-3 font-bold tracking-wide transform hover:scale-110">
                   Browse podcasts
                 </button>
               </div>

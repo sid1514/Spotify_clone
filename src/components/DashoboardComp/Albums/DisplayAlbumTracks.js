@@ -80,7 +80,7 @@ const DisplayAlbumTracks = () => {
             Tracks.map((t, index) => (
               <div className=" relative " onClick={() => handleTrackClick(t)}>
                 <div className="flex mb-1 pb-1 ml-4" key={t.id}>
-                  <div className="w-24 py-4 text-center">
+                  <div className="md:w-24 w-10 py-4 text-center">
                     <div className="hover:hidden"> {index + 1}</div>
                   </div>
 
@@ -89,7 +89,7 @@ const DisplayAlbumTracks = () => {
                       <img
                         src="https://w7.pngwing.com/pngs/250/419/png-transparent-musical-note-song-rectangle-logo-number-thumbnail.png"
                         alt="noimage"
-                        className="mr-4 h-12 w-12 rounded"
+                        className="md:mr-4 h-12 md:w-12 w-20 rounded"
                       />
                       <AskSignIn
                         open={askTosignIn}
@@ -98,10 +98,10 @@ const DisplayAlbumTracks = () => {
                         PlayListsName={t.name}
                       />
                     </div>
-                    <div className="w-80 h-10 pt-3">{t.name}</div>
+                    <div className="md:w-80 h-10 pt-3 ml-2 text-sm md:text-auto w-80">{t.name}</div>
                   </div>
                   {/* <div className="w-24 ml-[10%]">{t.popularity}</div> */}
-                  <div className="w-24 absolute right-10">
+                  <div className="md:w-24 absolute right-10">
                     {(t.duration_ms / 1000 / 60).toFixed(2)}
                   </div>
                 </div>

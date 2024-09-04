@@ -42,22 +42,22 @@ const ArtistonHome = () => {
   };
   return (
     <>
-      <div>
+      <div className="w-full">
         <div className=" p-4 pl-10 flex mt-16">
-          <p className=" text-2xl font-extrabold hover:underline underline-offset-3 text-white w-11/12">
+          <p className=" md:text-2xl font-extrabold hover:underline underline-offset-3 text-white md:w-11/12 w-9/12">
             Popular artists
           </p>
 
           <button
-            className=" top-30 pt-3"
+            className=" top-30 md:pt-3"
             onClick={() => dispatch(setShowMore(true))}
           >
-            <p className="text-xl text-stone-400 hover:underline underline-offset-1 font-bold">
+            <p className="md:text-xl text-stone-400 hover:underline underline-offset-1 font-bold">
               Show all
             </p>
           </button>
         </div>
-        <div className="flex flex-wrap text-white ">
+        <div className="flex flex-wrap text-white w-full">
           {displayedArtists.map((a) => (
             <div
               className="rounded-xl space-x-6 px-5 py-4 mb-4 group relative hover:bg-neutral-800"
@@ -67,10 +67,10 @@ const ArtistonHome = () => {
                 <img
                   src={a.images[0].url}
                   alt={a.name}
-                  className="w-36 h-36 rounded-full mb-2"
+                  className="md:w-36 md:h-36 w-24 h-24 rounded-full mb-2"
                 />
               </div>
-              <div className="w-36">
+              <div className="md:w-36 w-24">
                 <label className="flex ">{a.name}</label>
                 <p>Artist</p>
               </div>

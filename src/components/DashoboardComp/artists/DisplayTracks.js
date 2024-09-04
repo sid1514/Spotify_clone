@@ -64,11 +64,11 @@ const DisplayTracks = () => {
           <p></p>
         </div>
       </div>
-      <div className="flex align-center h-24 space-x-6 m-4">
+      <div className="flex align-center h-24 md:space-x-6 space-x-4 m-4">
         <div>
           <img
             src="https://cdn-icons-png.flaticon.com/512/8212/8212668.png"
-            className=" w-20 h-20 "
+            className=" md:w-20 md:h-20 w-16 h-16 "
             alt="play"
           />
         </div>
@@ -87,7 +87,7 @@ const DisplayTracks = () => {
           Tracks.map((t, index) => (
             <div className=" relative " onClick={() => handleTrackClick(t)}>
               <div className="flex mb-1 pb-1 ml-4" key={t.id}>
-                <div className="w-24 py-4 text-center">
+                <div className="md:w-24 w-10 py-4 text-center">
                   <div className="hover:hidden"> {index + 1}</div>
                 </div>
 
@@ -96,7 +96,7 @@ const DisplayTracks = () => {
                     <img
                       src={t.album.images[2].url}
                       alt=""
-                      className="mr-4 h-12 w-12 rounded"
+                      className="mr-4 h-12 md:w-12 w-28 rounded"
                     />
                     <AskSignIn
                       open={askTosignIn}
@@ -105,10 +105,10 @@ const DisplayTracks = () => {
                       PlayListsName={t.name}
                     />
                   </div>
-                  <div className="w-80 h-10 pt-3">{t.name}</div>
+                  <div className="pl-2 md:pr-0 w-96 md:w-80 md:h-10 md:pt-3 md:text-auto text-sm">{t.name}</div>
                 </div>
-                <div className="w-24 ml-[10%]">{t.popularity}</div>
-                <div className="w-24 absolute right-10">
+                <div className="md:w-24 ml-[10%]">{t.popularity}</div>
+                <div className="md:w-24 absolute right-10">
                   {(t.duration_ms / 1000 / 60).toFixed(2)}
                 </div>
               </div>

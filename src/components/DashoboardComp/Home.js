@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import DefaultPlayList from "./DefaultPlayList";
 import SideDrawer from "./SideDrawer";
 import axios from "axios";
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FooterSignup from "../Authentication/FooterSignup";
 import MusicPlayer from "../Player";
 import UserHome from "./userHomepage/userHome";
+import { Icon } from "semantic-ui-react";
 
 function Home() {
   const clientID = process.env.REACT_APP_CLIENT_ID;
@@ -45,16 +46,28 @@ function Home() {
   });
 
   //console.log(track);
-
+  const [openSideDrawer, setOpenSidDrawer] = useState(false);
   return (
     <>
-      <div className="bg-black w-full h-screen">
+      <div className="bg-black w-full md:h-screen h-auto ">
         {!access_token ? (
-          <div className="flex z-0">
-            <div className="w-[24%]">
-              <SideDrawer />
+          <div className="flex ">
+            <div className="md:w-[24%] w-[35%] relative z-10 flex">
+              <div
+                className={`${
+                  openSideDrawer ? "block" : "hidden"
+                } md:block text-sm md:text-auto md:static absolute `}
+              >
+                <SideDrawer />
+              </div>
+              <div
+                className="md:hidden absolute z-10 ml-4 left-0 mt-6"
+                onClick={() => setOpenSidDrawer(!openSideDrawer)}
+              >
+                <Icon name="options" color="grey" size="large" />
+              </div>
             </div>
-            <div className="flex-1 mt-2 ">
+            <div className="flex-1 mt-2 md:static absolute z-0 w-full md:w-auto">
               <DefaultPlayList />
             </div>
           </div>
@@ -63,7 +76,7 @@ function Home() {
             <UserHome />
           </div>
         )}
-        <div className="z-1 fixed w-full bottom-0">
+        <div className="z-10 fixed w-full bottom-0">
           <div>
             {track ? <MusicPlayer /> : !access_token ? <FooterSignup /> : null}
           </div>
