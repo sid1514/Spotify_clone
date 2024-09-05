@@ -9,7 +9,7 @@ const FooterSignup = () => {
 
   return (
     <>
-      <div className="flex align-center pt-2 w-full bg-black grid flex font-bold text-white bg-stone-800 m-3 mr-4 pb-3 pl-3 tracking-wide bg-gradient-to-r from-pink-500 to-blue-400 h-14 h-20 md:text-auto text-sm">
+      <div className="flex align-center pt-2 w-full bg-black grid flex font-bold text-white bg-stone-800 m-3 mr-4 pb-2 pl-3 tracking-wide bg-gradient-to-r from-pink-500 to-blue-400 h-14 md:text-auto text-sm">
         <div>
           <p>
             Preview of Spotify <br></br>

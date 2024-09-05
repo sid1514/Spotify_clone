@@ -84,12 +84,12 @@ const SideDrawer = () => {
                   Create playlist
                 </button>
               </div>
-              <div className="bg-neutral-800 m-2 my-12 p-10 rounded-2xl">
+              <div className="bg-neutral-800 m-2 my-12 md:p-10 rounded-2xl p-3">
                 <p>Let's find some podcasts to follow</p>
                 <p className="md:text-xl">
                   We'll keep you updated on new episodes
                 </p>
-                <button className="bg-white text-black md:w-48 h-12 rounded-3xl px-3 font-bold tracking-wide transform hover:scale-110">
+                <button className="bg-white text-black md:w-48 md:h-12 rounded-3xl md:px-3 font-bold tracking-wide transform hover:scale-110 text-sm md:text-auto">
                   Browse podcasts
                 </button>
               </div>

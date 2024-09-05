@@ -65,8 +65,8 @@ const DisplayAlbum = () => {
                 className="md:w-36 md:h-36 w-24 h-24 mb-2 rounded"
               />
             </div>
-            <div className="md:w-36 w-24 text-sm flex align-center ">
-              <div className="text-left">
+            <div className="md:w-36 w-24 h-16 text-sm flex align-center ">
+              <div className="text-left overflow-x-hidden overflow-y-hidden">
                 <label className="flex ">{a.name}</label>
                 <p className="flex ">
                   {a.artists.map((artist) => (

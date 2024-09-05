@@ -37,18 +37,17 @@ const DefaultPlayList = () => {
   };
   return (
     <>
-      <div className="w-full mx-3 " id="maindiv">
-        <div className="relative md:w-[80%] w-full z-10" id="navbar_signDiv">
+      <div className="w-full h-screen " id="maindiv">
+        <div className=" relative md:w-[82%] w-full z-10" id="navbar_signDiv">
           <div
             className={`w-full flex ${
               SelectedArtist ? "bg-transparent" : "bg-neutral-950"
-            } h-20 fixed top-0 pt-10 md:pt-0 items-center justify-between"
+            } h-20 fixed top-0 pt-10 md:pt-0 items-center justify-between "
             `}
-           
           >
-            <div className="p-6 mb-6 align-center flex pl-8" id="arrowsDiv">
+            <div className="p-6 md:mb-6 align-center flex pl-10" id="arrowsDiv">
               <div
-                className={`border-1 rounded-3xl bg-black w-12 h-12 p-2 text-white`}
+                className={`border-1 rounded-3xl bg-black md:w-12 md:h-12 h-8 w-8 p-2 text-white`}
                 onClick={handleNavBack}
               >
                 <svg
@@ -66,7 +65,7 @@ const DefaultPlayList = () => {
                   />
                 </svg>
               </div>
-              <div className="border-1 rounded-3xl bg-black w-12 h-12 p-2 ml-2 text-white">
+              <div className="border-1 rounded-3xl bg-black md:w-12 md:h-12 h-8 w-8 p-2 ml-2 text-white">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -95,7 +94,7 @@ const DefaultPlayList = () => {
                 Sign up
               </button>
               <button
-                className="w-16 bg-white text-black h-10 rounded-full font-extrabold px-4 md:w-24 shadow-lg"
+                className="md:w-16 bg-white text-black md:h-10 h-8 rounded-full md:font-extrabold px-4 md:w-28 shadow-lg font-bold text-sm"
                 onClick={handleNavtoLogin}
               >
                 Log in
@@ -104,8 +103,8 @@ const DefaultPlayList = () => {
           </div>
         </div>
 
-        <div className="bg-zinc-800/50 overflow-y-auto md:h-[90vh] md:w-[99%] ">
-          <div className="bg-neutral-900 ">
+        <div className=" bg-zinc-800/50 overflow-y-auto md:h-[90vh] md:w-[99%] ">
+          <div className="bg-neutral-900 pl-8">
             <div>
               {SelectedArtist ? (
                 <DisplayTracks />
@@ -114,7 +113,11 @@ const DefaultPlayList = () => {
               )}
             </div>
             <div>
-              {Selectedalbum ? <DisplayAlbumTracks /> : SelectedArtist?null: <DisplayAlbum />}
+              {Selectedalbum ? (
+                <DisplayAlbumTracks />
+              ) : SelectedArtist ? null : (
+                <DisplayAlbum />
+              )}
             </div>
           </div>
 

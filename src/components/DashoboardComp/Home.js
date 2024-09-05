@@ -49,10 +49,10 @@ function Home() {
   const [openSideDrawer, setOpenSidDrawer] = useState(false);
   return (
     <>
-      <div className="bg-black w-full md:h-screen h-auto ">
+      <div className="bg-black w-full md:h-screen h-full">
         {!access_token ? (
           <div className="flex ">
-            <div className="md:w-[24%] w-[35%] relative z-10 flex">
+            <div className="md:w-[24%] w-[38%] relative z-10 flex">
               <div
                 className={`${
                   openSideDrawer ? "block" : "hidden"
@@ -61,13 +61,13 @@ function Home() {
                 <SideDrawer />
               </div>
               <div
-                className="md:hidden absolute z-10 ml-4 left-0 mt-6"
+                className="md:hidden absolute z-10 ml-4 left-0 mt-4"
                 onClick={() => setOpenSidDrawer(!openSideDrawer)}
               >
-                <Icon name="options" color="grey" size="large" />
+                <Icon name="list" color="grey" size="large" />
               </div>
             </div>
-            <div className="flex-1 mt-2 md:static absolute z-0 w-full md:w-auto">
+            <div className="flex-1 mt-2 md:static absolute z-0 w-screen md:w-auto">
               <DefaultPlayList />
             </div>
           </div>

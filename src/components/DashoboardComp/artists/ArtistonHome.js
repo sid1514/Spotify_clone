@@ -60,14 +60,14 @@ const ArtistonHome = () => {
         <div className="flex flex-wrap text-white w-full">
           {displayedArtists.map((a) => (
             <div
-              className="rounded-xl space-x-6 px-5 py-4 mb-4 group relative hover:bg-neutral-800"
+              className="rounded-xl space-x-6 px-3 py-4 mb-4 group relative hover:bg-neutral-800"
               onClick={() => handleArtistClick(a)}
             >
               <div className="rounded-full relative">
                 <img
                   src={a.images[0].url}
                   alt={a.name}
-                  className="md:w-36 md:h-36 w-24 h-24 rounded-full mb-2"
+                  className="md:w-32 md:h-32 w-24 h-24 rounded-full mb-2"
                 />
               </div>
               <div className="md:w-36 w-24">
