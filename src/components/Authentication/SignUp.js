@@ -16,7 +16,13 @@ const Signup = () => {
     // Redirect user to Spotify login page
     window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
   };
+const loginIconsStyle = "md:ml-6 ml-2 h-8";
+const loginLabelStyle = "pl-3 md:pl-20 md:text-xl text-sm md:pt-0 pt-2";
+const buttonStyle =
+  "md:w-7/12 w-10/12 flex align-center h-10 md:h-16 border rounded-full border-neutral-500 md:py-4";
 
+const EmailPassStyle =
+  "bg-stone-950 text-white md:mt-4 border border-neutral-500 md:h-12 h-10 md:w-8/12 w-9/12 py-5 pl-1 md:text-xl rounded mb-8 md:text-auto text-sm";
   return (
     <>
       <section className="w-full bg-stone-950 text-white ">
@@ -24,36 +30,33 @@ const Signup = () => {
           <img
             src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/spotify-white-icon.png"
             alt="spotify"
-            className="w-14 h-14"
+            className="md:w-14 md:h-14 w-10 h-10"
           />
         </div>
 
         <div className="flex bg-stone-950 justify-center pt-8  ">
-          <div className="w-[30%]">
+          <div className="md:w-[30%] w-[78%]">
             <div className="flex ">
-              <p className="text-6xl font-extrabold pb-4 flex text-center">
+              <p className="md:w-auto ml-2 md:ml-auto w-10/12 md:text-6xl text-xl font-extrabold pb-4 flex text-center">
                 Sign up to start listening
               </p>
             </div>
-            <div className="mt-2 ml-16 ">
-              <label className="text-xl font-bold ">Email address</label>{" "}
+            <div className="mt-2 md:ml-16 ml-10">
+              <label className="md:text-xl font-bold ">Email address</label>{" "}
               <br></br>
-              <input
-                placeholder="name@domain.com"
-                className=" bg-stone-950 text-white mt-4 border border-neutral-500 h-16 p-5 text-2xl rounded w-[88%]"
-              />
+              <input placeholder="name@domain.com" className={EmailPassStyle} />
             </div>
-            <div className="ml-16">
-              <p className="pt-4 text-xl underline text-green-400 font-bold">
+            <div className="md:ml-16 ml-10">
+              <p className="md:pt-4 md:text-xl underline text-green-400 font-bold">
                 Use phone number instead.
               </p>
             </div>
             <div className="ml-16 mt-6">
-              <button className="text-xl font-bold w-11/12 h-16 rounded-full bg-green-500 text-black">
+              <button className="md:mt-16 md:w-7/12 w-24 md:h-16 h-10 border md:p-5 rounded-3xl border-neutral-500 md:mt-3 mb-3 bg-green-500 text-black md:text-2xl text-sm font-bold">
                 Next
               </button>
             </div>
-            <div className="flex justify-center align-center pt-6 ">
+            <div className="flex justify-center align-center pt-6 md:block hidden">
               <svg width="600" height="80">
                 <line
                   x1="58"
@@ -82,52 +85,33 @@ const Signup = () => {
                 />
               </svg>
             </div>
-            <div className="ml-16 ">
-              <button
-                className="w-11/12 align-center flex h-16 border rounded-full border-neutral-500 py-4"
-                onClick={handleGoogleLogin}
-              >
+            <div className="md:ml-16 ml-10">
+              <button className={buttonStyle} onClick={handleGoogleLogin}>
                 <img
                   src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000"
                   alt="google"
-                  width={30}
-                  height={30}
-                  className="ml-6"
+                  className={loginIconsStyle}
                 />
-                <p className="pl-20 text-xl">Sign up with google</p>
+                <p className={loginLabelStyle}>Sign up with google</p>
               </button>
             </div>
-            <div className="ml-16 mt-3">
-              <button
-                className="w-11/12 align-center flex h-16 border rounded-full border-neutral-500 py-4"
-                
-              >
+            <div className="md:ml-16 ml-10 mt-3">
+              <button className={buttonStyle}>
                 <img
                   src="https://img.icons8.com/?size=100&id=118497&format=png&color=000000"
                   alt="facebook"
-                  width={30}
-                  height={30}
-                  className="ml-6"
+                  className={loginIconsStyle}
                 />
-                <p className="pl-20 text-xl">Sign up with Facebook</p>
+                <p className={loginLabelStyle}>Sign up with Facebook</p>
               </button>
             </div>
-            <div className="ml-16 mt-3">
-              <button
-                className="w-11/12 align-center flex h-16 border rounded-full border-neutral-500 py-4"
-                
-              >
-                <img
-                  src="apple.png"
-                  alt="apple"
-                  width={30}
-                  height={30}
-                  className="ml-6"
-                />
-                <p className="pl-20 text-xl">Sign up with Apple</p>
+            <div className="md:ml-16 ml-10 mt-3">
+              <button className={buttonStyle}>
+                <img src="apple.png" alt="apple" className={loginIconsStyle} />
+                <p className={loginLabelStyle}>Sign up with Apple</p>
               </button>
             </div>
-            <div>
+            <div className="md:block hidden">
               <svg width="600" height="40">
                 <line
                   x1="60"
@@ -139,14 +123,14 @@ const Signup = () => {
                 />
               </svg>
             </div>
-            <div className="pb-14 ml-20">
-              <p className="text-stone-300/75 pt-7 text-xl text-centre tracking-wide">
+            <div className="pb-14 md:ml-20 ml-10">
+              <p className="text-stone-300/75 pt-7 md:text-xl text-sm text-centre tracking-wide">
                 Already have an account?{" "}
                 <b className="text-white underline" onClick={handleNavtoLogin}>
                   Log in here.
                 </b>
               </p>
-              <p className="pl-8 pr-5 text-stone-300/75 pt-7 tracking-wide">
+              <p className="md:pl-8 pr-5 text-stone-300/75 pt-7 md:text-auto text-sm tracking-wide">
                 This site is protected by reCAPTCHA and the Google
                 <center className="pt-2 pb-10">
                   <u>Privacy Policy</u> and <u>Terms of Service </u> apply.
