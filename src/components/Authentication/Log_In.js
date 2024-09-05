@@ -14,8 +14,8 @@ const LogIn = () => {
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT;
   const RESPONSE_TYPE = "token";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const scope =
-    "playlist-read-private playlist-read-collaborative user-read-private user-read-email user-top-read user-read-playback-state user-modify-playback-state";
+  const scope = process.env.REACT_APP_LOGIN_SCOPE;
+
   const handleGoogleLogin = () => {
     // Redirect user to Spotify login page
     window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${scope}`;
@@ -26,8 +26,8 @@ const LogIn = () => {
   const buttonStyle =
     "md:w-7/12 w-10/12 flex align-center h-10 md:h-16 border rounded-full border-neutral-500 md:py-4";
 
-const EmailPassStyle =
-  "bg-stone-950 text-white md:mt-4 border border-neutral-500 md:h-12 h-10 md:w-8/12 w-9/12 p-5 md:text-xl rounded mb-8";
+  const EmailPassStyle =
+    "bg-stone-950 text-white md:mt-4 border border-neutral-500 md:h-12 h-10 md:w-8/12 w-9/12 p-5 md:text-xl rounded mb-8";
   return (
     <>
       <section className="p-10 flex justify-center w-full text-white bg-gradient-to-b from-neutral-800 to-neutral-950">
@@ -84,7 +84,9 @@ const EmailPassStyle =
           </div>
           <div className="flex justify-center md:mt-4 mt-6 w-full md:ml-24 ml-8">
             <div className=" md:w-[85%] ">
-              <label className="md:text-xl text-sm font-bold ">Email or username</label>{" "}
+              <label className="md:text-xl text-sm font-bold ">
+                Email or username
+              </label>{" "}
               <br></br>
               <input
                 placeholder="Email or username"
@@ -94,11 +96,9 @@ const EmailPassStyle =
           </div>
           <div className="flex justify-center md:mt-4 w-full md:ml-24 ml-8">
             <div className="md:w-[85%] ">
-              <label className="md:text-xl text-sm font-bold ">Password</label> <br></br>
-              <input
-                placeholder="Password"
-                className={EmailPassStyle}
-              />
+              <label className="md:text-xl text-sm font-bold ">Password</label>{" "}
+              <br></br>
+              <input placeholder="Password" className={EmailPassStyle} />
             </div>
           </div>
           <br></br>
